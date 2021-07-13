@@ -121,16 +121,19 @@ public class Main {
         */
 
         String fileName = "/Users/java/Desktop/WORKSPACE/Book/src/com/formation/exo/personnes.txt";
-        List<String> list = new ArrayList<>();
+        List<Personne> list = new ArrayList<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))){
             list = stream
-                    .filter(line -> !line.startsWith("PRENOM"))
-                    .filter(line -> !line.startsWith("Simon"))
+                    .skip(1)
+                    .map(line -> line.split(", "))
+                    .filter(line -> line[4].equalsIgnoreCase("F") || line[4].equalsIgnoreCase("H"))
+                    .map(word -> new Personne(word[0],word[1],Integer.parseInt(word[2]),Float.parseFloat(word[3]), word[4], word[5]))
                     .collect(Collectors.toList());
         } catch (IOException e){
             e.printStackTrace();
         }
+
 
         list.forEach(System.out::println);
 

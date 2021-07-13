@@ -71,7 +71,9 @@ public class Personne {
                 "lastname='" + lastname + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", gender='" + gender + '\'' +
+                ", salary=" + salary +
                 ", birthYear=" + birthYear +
+                ", city='" + city + '\'' +
                 '}';
     }
 }

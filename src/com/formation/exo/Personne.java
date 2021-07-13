@@ -4,13 +4,17 @@ public class Personne {
     private String lastname;
     private String firstname;
     private String gender;
+    private float salary;
     private int birthYear;
+    private String city;
 
-    public Personne(String firstname, String lastname, int birthYear, String gender){
+    public Personne(String firstname, String lastname, int birthYear, float salary, String gender, String city){
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthYear = birthYear;
+        this.salary = salary;
         this.gender = gender;
+        this.city = city;
     }
 
     public String getLastname() {
@@ -37,12 +41,28 @@ public class Personne {
         this.gender = gender;
     }
 
+    public float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(float salary) {
+        this.salary = salary;
+    }
+
     public int getBirthYear() {
         return birthYear;
     }
 
     public void setBirthYear(int birthYear) {
         this.birthYear = birthYear;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override

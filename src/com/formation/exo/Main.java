@@ -1,15 +1,25 @@
 package com.formation.exo;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /*
 
                 ** EXERCISE 1 **
@@ -45,8 +55,8 @@ public class Main {
 
 
         */
-
-
+                                    // EXERCISE 3
+        /*
         List<Personne> persons = List.of(
                 new Personne ("Laure", "BARBE", 1994, "f"),
                 new Personne ("Rihab", "BETTAIEB", 1991,  "F"),
@@ -58,6 +68,8 @@ public class Main {
                 new Personne ("Simon", "MAILLARD", 1975, "H"),
                 new Personne ("Baptiste", "BLANCHET", 1985, "A")
         );
+
+         */
 
         // 1)
         /*persons.stream()
@@ -73,15 +85,69 @@ public class Main {
         */
 
         // 3)
-            persons.stream()
+            /*persons.stream()
                 .filter(p -> p.getBirthYear() < 1990)
                 .sorted(Comparator.comparing(Personne::getLastname))
                 .map(Personne::getLastname)
+                .forEach(System.out::println);*/
+
+        // 4)
+
+        /*persons.stream()
+                .sorted(Comparator.comparing(Personne::getLastname)
+                        .thenComparing (Personne::getFirstname))
                 .forEach(System.out::println);
+        */
+
+        // 5)
+        /*
+        persons.stream()
+                .filter(p -> p.getLastname().startsWith("B"))
+                .filter(p -> p.getGender().equalsIgnoreCase("F"))
+                .forEach(System.out::println);
+        */
+
+        // 6)
+
+        /*
+        persons.stream()
+                .map(p ->{
+                    p.setGender(p.getGender().toLowerCase());
+                    return p;
+                })
+
+                .filter(p -> p.getGender().equals("h"))
+                .forEach(System.out::println);
+        */
+
+        String fileName = "/Users/java/Desktop/WORKSPACE/Book/src/com/formation/exo/personnes.txt";
+        List<String> list = new ArrayList<>();
+
+        try (Stream<String> stream = Files.lines(Paths.get(fileName))){
+            list = stream
+                    .filter(line -> !line.startsWith("PRENOM"))
+                    .filter(line -> !line.startsWith("Simon"))
+                    .collect(Collectors.toList());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        list.forEach(System.out::println);
 
 
+    }
 
 
+    public static void readTxt(String fileName) throws IOException {
+        File file = new File(fileName);
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        while ((line = br.readLine()) != null){
+            System.out.println(line);
+        }
+        br.close();
+        fr.close();
     }
 
     public static void afficherPositif(int[] tab, MonFilter monFilter){
